@@ -53,7 +53,8 @@ def evaluate_accuracy_gpu(net, data_iter, device=None): #@save
 
 def init_weights(m):
     if type(m)==nn.Conv2d or type(m) == nn.Conv2d:
-        nn.init.normal_(m.weight,0,0.1)
+        # nn.init.normal_(m.weight,0,0.1)
+        nn.init.xavier_normal_(m.weight)
 net.apply(init_weights)
 
 loss = nn.CrossEntropyLoss()

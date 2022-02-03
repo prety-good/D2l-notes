@@ -284,7 +284,7 @@
 
 * 读写文件：
   - 存取变量`torch.save(a,'dic')`&emsp;`a=torch.load('dic')`
-  - 存取网络的参数`torch.save(net.state_dict(),'···')` 取的时候`net.load_state_dice(torch.load('···'))`在pytorch中网络的定义无法保存，需要重新定义。这也是pytorch相较于tenserflow和mxnet不足的地方，无法保存网络的定义。
+  - 存取网络的参数`torch.save(net.state_dict(),'···')` 取的时候`net.load_state_dict(torch.load('···'))`在pytorch中网络的定义无法保存，需要重新定义。这也是pytorch相较于tenserflow和mxnet不足的地方，无法保存网络的定义。
 
 ***
 
@@ -366,3 +366,38 @@
 * Pytorch中的池化层的步幅大小和窗口大小默认相同
 * 池化层放在卷积层的输出之后，可以使得结果对于位置的信息不是那么的敏感。
 * 双重目的：降低卷积层对位置的敏感性，降低对空间降采样表示的敏感性。
+
+***
+
+## 23.Lenet
+
+* 使用的是Sigmoid激活函数
+
+***
+
+## 24.Alexnet
+
+* 激活函数变为ReLU
+* 在全连接层中加入dropout正则化
+* 使用了数据增强
+
+***
+
+## 25.VGGnet
+
+* 更大更深的Alexnet，使用了重复的VGG块，比较整洁。
+* 发现了深且窄的卷积网络效果要优于浅层且宽的网络。
+
+***
+
+## 26.NiN
+
+* 引入了1x1卷积层替代全连接层，相当于对每个像素增加了非线性性
+* 不容易过拟合，参数个数很少
+
+***
+
+## 27.GoogLenet
+
+* Inception块：从不同的层面提取信息，然后在输出通道维合并。
+* Googlenet分了5个stege，每个stage，图像的高宽减半。有多个inception block，最后是全局平均池化层。然后flatten。

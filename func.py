@@ -16,12 +16,14 @@ def evaluate_loss(net, data_iter, loss):
         metric.add(l.sum(), l.numel())
     return metric[0] / metric[1]
 
-def load_fashion_mnist(batch_size = 64):   
-    # 读取数据集
-    train = torchvision.datasets.FashionMNIST(
-        root="data", train=True, transform=transforms.ToTensor())
-    test = torchvision.datasets.FashionMNIST(
-        root="data", train=False, transform=transforms.ToTensor())
+def load_fashion_mnist(batch_size = 64 , resize = None):   
+    trans = [transforms.ToTensor()]
+    if resize:
+        trans.insert(0, transforms.Resize(resize))
+    trans = transforms.Compose(trans)
+    
+    train = torchvision.datasets.FashionMNIST(root="data", train=True, transform=trans)
+    test = torchvision.datasets.FashionMNIST(root="data", train=False, transform=trans)
 
     train_iter = data.DataLoader(train,batch_size,shuffle=True,num_workers=0)
     test_iter = data.DataLoader(test,batch_size,shuffle=False,num_workers=0)
