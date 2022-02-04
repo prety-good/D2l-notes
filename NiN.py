@@ -28,7 +28,7 @@ for layer in net:
 
 batch_size = 128
 train_iter,test_iter = load_fashion_mnist(batch_size , resize = 224)
-num_epochs , lr = 5 , 0.1
+num_epochs , lr = 10 , 0.1
 
 # 借助d2l包训练并可视化结果
 d2l.train_ch6(net,train_iter,test_iter,num_epochs,lr,"cuda:0")
@@ -38,7 +38,7 @@ d2l.plt.show()
 loss = nn.CrossEntropyLoss()
 optim = torch.optim.SGD(net.parameters(),lr)
 
-net = net.cuda()
+net.cuda()
 def init_weight(m):
     if type(m)==nn.Conv2d:
         nn.init.xavier_normal_(m.weight)
