@@ -66,8 +66,7 @@ for layer in net:
     print("{0}outputshape:\t{1}".format(layer.__class__.__name__,X.shape))
 
 
-batch_size = 128
-train_iter,test_iter = load_fashion_mnist(batch_size , resize = 96)
+train_iter,test_iter = load_fashion_mnist(batch_size = 128, resize = 96)
 num_epochs , lr = 10 , 0.1
 
 # 借助d2l包训练并可视化结果

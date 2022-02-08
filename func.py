@@ -24,7 +24,7 @@ def load_fashion_mnist(batch_size = 64 , resize = None):
     
     train = torchvision.datasets.FashionMNIST(root="data", train=True, transform=trans)
     test = torchvision.datasets.FashionMNIST(root="data", train=False, transform=trans)
-
+    
     train_iter = data.DataLoader(train,batch_size,shuffle=True,num_workers=0)
     test_iter = data.DataLoader(test,batch_size,shuffle=False,num_workers=0)
     print(next(iter(train_iter))[0].shape)
