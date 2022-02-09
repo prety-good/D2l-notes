@@ -500,20 +500,42 @@
 
   * 加入各种不同的背景噪音
   * 改变图片的颜色和形状
+
 * 翻转：上下翻转、左右翻转
+
 * 切割：从图片中切割一块，然后变形为固定的形状。
 
   * 随机高宽比$[\frac{3}{4},\frac{4}{3}]$
   * 随机大小$[8\%,100\%]$
   * 随机位置
+
 * 颜色：改变色调、饱和度、明亮度$[0.5,1.5]$
+
 * `from torchvision import transforms`中常用的图片增强函数
+
   * 左右翻转图像`transforms.RandomHorizontalFlip()`
+
   * 上下翻转`transforms.RandomVerticalFlip()`
-  * 随机裁剪`shape_aug = transforms.RandomResizedCrop((200, 200), scale=(0.1, 1), ratio=(0.5, 2))`
-  * 颜色`transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0)`
-  * 色调`transforms.ColorJitter(
-        brightness=0, contrast=0, saturation=0, hue=0.5)`
+
+  * 随机裁剪
+
+    `shape_aug = transforms.RandomResizedCrop((200, 200), scale=(0.1, 1), ratio=(0.5, 2))`
+
+  * 颜色
+
+    `transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0)`
+
+  * 色调
+
+    `transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0.5)`
+
   * 随机亮度、对比度、饱和度和色调`color_aug=transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5)`
+
   * 常用的组合：`transforms.Compose([transforms.RandomHorizontalFlip(), color_aug, shape_aug])`
+
+***
+
+## 37.微调
+
+* 
 
