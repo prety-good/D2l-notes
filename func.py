@@ -45,7 +45,7 @@ def show_images(imgs, num_rows, num_cols, titles=None, scale=1.5):
     for i, (ax, img) in enumerate(zip(axes, imgs)):
         if torch.is_tensor(img):
             # Tensor Image
-            ax.imshow(img.numpy())
+            ax.imshow(np.transpose(img.numpy(),(1,2,0)))
         else:
             # PIL Image
             ax.imshow(img)
