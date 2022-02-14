@@ -50,8 +50,7 @@ loss = nn.CrossEntropyLoss()
 params_1x = [param for name, param in net.named_parameters()
              if name not in ["fc.weight", "fc.bias"]]
 trainer = torch.optim.SGD([{'params': params_1x},
-                            {'params': net.fc.parameters(),
-                            'lr': lr * 10}],
+                            {'params': net.fc.parameters(), 'lr': lr * 10}],
                         lr=lr, weight_decay=0.001)
 
 d2l.train_ch13(net, train_iter, test_iter, loss, trainer, num_epochs,[torch.device('cuda:0')])

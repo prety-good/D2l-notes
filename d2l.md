@@ -142,8 +142,22 @@
 
   `loss=nn.CrossEntropyloss()`
   
-* fashionMNIST数据集：导入data包：`from torch.utils import data`。&emsp;把训练集转换为TensorDataset：`dataset=data.TensorDataset(*(X,y))`，如果是mnist数据集的话需要使用torch的函数`mnist_train=torchvision.datasets.FashionMNIST(
-    root="../data", train=True, transform=transforms.ToTensor())`。&emsp;定义迭代器DataLoader：`data.DataLoader(dataset,batch_size,shuffle=True,num_workers=1)`得到一个可迭代的对象，循环遍历一遍数据集作为一个训练的epoch。
+* fashionMNIST数据集：导入data包：`from torch.utils import data`。&emsp;把训练集转换为Dataset：`dataset=data.TensorDataset(*(X,y))`，或者定义自己的Dataset类：
+  
+    ```python
+    class mydataset(data.Dataset):
+        def __init__(self,X,y):
+            pass
+        def __len__(self):
+            pass
+        def __getitem__(self,index):
+            pass
+    ```
+    
+    如果是mnist数据集的话需要使用torch的函数`mnist_train=torchvision.datasets.FashionMNIST(
+    root="../data", train=True, transform=transforms.ToTensor())`。&emsp;
+    
+    定义迭代器DataLoader：`data.DataLoader(dataset,batch_size,shuffle=True,num_workers=0)`得到一个可迭代的对象，循环遍历一遍数据集作为一个训练的epoch。
 
 ***
 
@@ -538,12 +552,98 @@
 ## 37.微调
 
 * 微调是一种迁移学习。
+
 * 卷积层可以视为一个特征提取器。一个新的模型只需要对于旧的模型的输出层重新训练，卷积部分基本不需要改动。
+
 * 新的模型上训练：
   * 使用更小的学习率
   * 使用更小的数据迭代
+  
 * 通常源数据集远远复杂于目标数据集，微调的效果更好。
+
 * 预训练的模型质量很重要
+
 * 微调的速度更快、精度更高
+
+* optim实现的细节：
+
+  ```python
+  params_1x = [param for name, param in net.named_parameters() if name not in ["fc.weight", "fc.bias"]]
+  trainer = torch.optim.SGD([{'params': params_1x} , {'params': net.fc.parameters(),'lr': learning_rate * 10}],
+                            lr=learning_rate, weight_decay=0.001)
+  ```
+
+***
+
+# 计算机视觉部分
+
+> 该部分待补充中
+
+***
+## 41.目标检测和数据集
+
+* bounding-box边缘框，可以用四个数字来定义位置（两种方法）。
+* coco数据集
+*  
+
+***
+
+## 42.锚框
+
+* 首先提出多个锚框，再预测每个锚框中是否含有关注的物体。如果含有，预测从这个锚框到真实边缘框的偏移。
+
+* IoU：交并比
+
+  用来计算两个锚框之间的相似度，0表示无重叠，1表示重合。
+
+  $$J(\mathcal{A},\mathcal{B}) = \frac{\left|\mathcal{A} \cap \mathcal{B}\right|}{\left| \mathcal{A} \cup \mathcal{B}\right|}.$$
+
 * 
+
+***
+
+## 44.R-CNN,SSD,YOLO
+
+* 区域卷积神经网络R-CNN：
+* 单发多框检测SSD：
+* 
+
+***
+
+## 45.多尺度锚框和SSD的实现
+
+* 
+
+***
+
+## 46.语义分割和数据集
+
+* Pascal VOC2012语义分割数据集
+* 
+
+***
+
+## 47.转置卷积
+
+* 
+
+***
+
+## 48.全连接卷积网络FCN
+
+* 使用深度学习实现语义分割的奠基性网络，将物体与背景分离。
+* 使用了转置卷积层来替代掉了传统的卷积神经网络CNN最后的fc层，实现了对每个像素的预测。
+* 
+
+***
+
+## 49.风格迁移
+
+* 
+
+***
+# 机器翻译
+***
+
+## 51.序列模型
 
