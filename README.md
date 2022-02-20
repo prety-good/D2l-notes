@@ -22,4 +22,6 @@
 * [Bn层](batchnorm.py)  
 * [图像增强](图像增强.py)  
 * [微调](fine-tuning.py)  
+* [序列模型](sequence.py)  
+* [文本预处理](text_preprocessing.py)  
 

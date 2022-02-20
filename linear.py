@@ -16,7 +16,7 @@ print(train_x.shape,train_y.shape)
 # 查看散点图
 d2l.set_figsize()
 d2l.plt.scatter(train_x[:, 0].detach().numpy(), train_y.detach().numpy(), 1)
-# d2l.plt.show()
+d2l.plt.show()
 
 # 设定读取数据集的函数
 def data_iter(batch_size, X, y):
