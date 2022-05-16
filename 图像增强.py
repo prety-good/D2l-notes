@@ -11,6 +11,8 @@ from matplotlib import pyplot as plt
 transforms.RandomHorizontalFlip()
 # 上下翻转
 transforms.RandomVerticalFlip()
+# 归一化
+transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 # 颜色    ：亮度、对比度、饱和度、色调
 color_aug=transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5)
 # 随机裁剪
