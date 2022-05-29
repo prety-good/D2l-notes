@@ -9,7 +9,7 @@ from IPython import display
 from matplotlib import pyplot as plt
 def evaluate_loss(net, data_iter, loss):
     """评估给定数据集上模型的损失"""
-    metric = d2l.Accumulator(2)  # 损失的总和,样本数量
+    metric = Accumulator(2)  # 损失的总和,样本数量
     for X, y in data_iter:
         out = net(X)
         y = y.reshape(out.shape)
@@ -70,6 +70,19 @@ class Accumulator:
     def __getitem__(self, idx):
         return self.data[idx]
 
+def set_axes(axes, xlabel, ylabel, xlim, ylim, xscale, yscale, legend):
+    """Set the axes for matplotlib.
+
+    Defined in :numref:`sec_calculus`"""
+    axes.set_xlabel(xlabel)
+    axes.set_ylabel(ylabel)
+    axes.set_xscale(xscale)
+    axes.set_yscale(yscale)
+    axes.set_xlim(xlim)
+    axes.set_ylim(ylim)
+    if legend:
+        axes.legend(legend)
+    axes.grid()
 
 class Animator:
     """For plotting data in animation."""
@@ -81,12 +94,12 @@ class Animator:
         # Incrementally plot multiple lines
         if legend is None:
             legend = []
-        d2l.use_svg_display()
-        self.fig, self.axes = d2l.plt.subplots(nrows, ncols, figsize=figsize)
+        display.set_matplotlib_formats('svg')
+        self.fig, self.axes = plt.subplots(nrows, ncols, figsize=figsize)
         if nrows * ncols == 1:
             self.axes = [self.axes, ]
         # Use a lambda function to capture arguments
-        self.config_axes = lambda: d2l.set_axes(
+        self.config_axes = lambda: set_axes(
             self.axes[0], xlabel, ylabel, xlim, ylim, xscale, yscale, legend)
         self.X, self.Y, self.fmts = None, None, fmts
 
@@ -148,5 +161,5 @@ def train_ch13(net, train_iter, test_iter, loss, trainer, num_epochs, devices=tr
                 animator.add(epoch + (i + 1) / num_batches,
                              (metric[0] / metric[1],  None))
         test_acc = d2l.evaluate_accuracy_gpu(net, test_iter)
-        animator.add(epoch + 1, (None, None, test_acc))
+        animator.add(epoch + 1, (None, test_acc))
     print(f'train  loss {metric[0] / metric[1]:.3f}, test loss {test_acc:.3f}')
